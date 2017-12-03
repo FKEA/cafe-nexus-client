@@ -1,0 +1,26 @@
+.signup-card {
+    width: 400px;
+}
+
+.card-input {
+    width: 100%;
+    margin-bottom: 12px;
+
+}
+
+.card-submit{
+    width: 200px;
+}
+
+.signup {
+    margin-top: 24px;
+}
+
+.spacer {
+    width: 48px;
+}
+
+.half-spacer {
+    width: 24px;
+}
+

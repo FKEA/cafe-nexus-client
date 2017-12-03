@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { User } from "./models/user";
+import { User } from "../models/user";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Observable } from "rxjs/Observable";
@@ -20,6 +20,14 @@ export class UserService {
     return this.http.get<User[]>(this.usersUrl);
   }
 
+  createUser(data: any) {
+    this.http.post(this.usersUrl, data, {responseType: 'text'}).subscribe();
+  }
+
+  //TODO: Implement getUser
+  getUser(id: number): Observable<User> {
+    return null;
+  }
 }
 
 

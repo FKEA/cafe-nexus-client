@@ -1,11 +1,29 @@
-<h1>
-  {{title}}
-</h1>
-<ul>
-<li *ngFor="let user of users">
 
-  <h3>User {{user.id}}</h3>
-  <p>Email: {{user.email}}</p>
-  <p>Name: {{user.firstName}} {{user.lastName}}</p>
-</li>
-</ul>
+
+<mat-toolbar color="primary" class="fixed-header">
+        
+        <span>Cafe Nexus</span>
+    
+        <span class="spacer"></span>
+    
+        <button mat-button [matMenuTriggerFor]="userMenu">
+            Filip Andersen
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    
+        <mat-menu #userMenu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>account_box</mat-icon>
+                Account
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                Sign Out
+            </button>
+        </mat-menu>
+          
+</mat-toolbar>
+
+<div fxFlexFill>
+<router-outlet></router-outlet>
+</div>

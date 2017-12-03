@@ -1,0 +1,60 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+    <form [formGroup]="signupForm" novalidate>
+      <mat-card class="signup-card" >
+        <mat-card-content>
+          <span fxLayout="row">
+              <mat-form-field class="card-input">
+                <input matInput placeholder="Firstname" formControlName="firstName"> 
+              </mat-form-field>
+              <span class="spacer"></span>
+              <mat-form-field class="card-input">
+                  <input matInput placeholder="Lastname" formControlName="lastName"> 
+                </mat-form-field>  
+          </span>    
+          <mat-form-field class="card-input">
+            <input matInput type="email" placeholder="Email" formControlName="email">
+          </mat-form-field>        
+          
+          <mat-form-field class="card-input">
+            <input matInput type="password" placeholder="Password" formControlName="password">
+          </mat-form-field>
+
+          <span fxLayout="row">
+
+            <mat-form-field class="card-input">
+                <input matInput placeholder="Major" formControlName="major">
+            </mat-form-field>
+
+
+            <span class="spacer"></span>
+
+            <mat-form-field>
+              <input matInput type="number" placeholder="Semester" formControlName="semester">
+            </mat-form-field>
+
+            <span class="spacer"></span>
+
+            <mat-form-field>
+              <mat-select placeholder="Gender" formControlName="gender">
+                <mat-option value="M">Male</mat-option>
+                <mat-option value="F">Female</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </span>
+
+            
+          <mat-form-field class="card-input">
+            <textarea matInput placeholder="Description" formControlName="description"></textarea>
+          </mat-form-field>
+
+        </mat-card-content>
+        <mat-card-actions align="center">
+            <button class="card-submit" mat-raised-button color="accent" (click)="createUser()">Signup</button>
+        </mat-card-actions>
+    </mat-card>
+    </form>
+
+    <p>Form Value: {{signupForm.value | json}}</p>
+
+</div>
