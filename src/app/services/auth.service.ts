@@ -15,21 +15,39 @@ export class AuthService {
   loggedIn: boolean;
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
 
+  id: Number;
+  firstname: String;
+  lastName: String;
+  email: String;
+
   constructor(private http: HttpClient, private router: Router) {
 
     if(this.getToken() !== null) {
       this.setLoggedIn(true);
+      this.id = this.getId();
+      this.email = this.getEmail();
+      this.firstname = this.getFirstName();
+      this.lastName = this.getLastName();
       this.router.navigateByUrl("home");
     }
    }
 
   login(credentials: any) {
 
-    this.http.post(this.authURL, credentials, {responseType: 'text'})
+    this.http.post(this.authURL, credentials)
       .subscribe(
+        
         data => {
-          localStorage.setItem('id_token', data.toString());
+          localStorage.setItem('token', data['token']);
+          localStorage.setItem('user_id', data['user']['id']);
+          localStorage.setItem('user_email', data['user']['email']);
+          localStorage.setItem('user_firstName', data['user']['firstName']);
+          localStorage.setItem('user_lastName', data['user']['lastName']);
           this.setLoggedIn(true);
+          this.id = this.getId();
+          this.email = this.getEmail();
+          this.firstname = this.getFirstName();
+          this.lastName = this.getLastName();
           this.router.navigateByUrl("home");
         },
         error => {
@@ -46,11 +64,31 @@ export class AuthService {
   }
 
   private getToken(): String {
-    return localStorage.getItem("id_token") as string;
+    return localStorage.getItem("token") as string;
+  }
+
+  private getId(): Number {
+    return Number(localStorage.getItem('user_id'));
+  }
+
+  private getEmail(): String {
+    return localStorage.getItem('user_email');
+  }
+
+  getFirstName(): String {
+    return localStorage.getItem('user_firstName');
+  }
+
+  getLastName(): String {
+    return localStorage.getItem('user_lastName');
   }
 
   logout() {
-    localStorage.removeItem("id_token");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("user_email");
+    localStorage.removeItem("user_firstName");
+    localStorage.removeItem("user_lastName");
     this.setLoggedIn(false);
     this.router.navigateByUrl("login");
   }

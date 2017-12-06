@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
 
   users: User[];
   title = 'Cafe Nexus';
+  fullName: String;
+  loggedIn: boolean;
 
   constructor(
     private userService: UserService,
@@ -22,11 +24,22 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
      //this.userService.getUsers().subscribe(users => this.users = users);
+     
+     this.authService.loggedIn$.subscribe(loggedIn => {
+       this.loggedIn = loggedIn;
+       if (loggedIn) {
+          this.fullName = this.authService.getFirstName() + " " + this.authService.getLastName();
+       } else {
+         this.fullName = '';
+       }
+     })
   }
 
   logout() {
     this.authService.logout();
   }
+
+
   
 
 }

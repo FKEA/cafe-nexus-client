@@ -1,0 +1,21 @@
+<div fxFlexFill fxLayoutAlign="center center">
+    <form [formGroup]="postForm" novalidate>
+  <mat-card class="card">
+    <mat-card-title class="card_title">
+      Create a Post
+    </mat-card-title>
+    <mat-card-content>
+  
+      <mat-form-field class="full_width card_content">
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="5" formControlName="content"></textarea>
+      </mat-form-field>
+  
+    </mat-card-content>
+    <mat-card-actions align="center">
+        <button mat-raised-button (click)="goBack()">Cancel</button>
+        <button mat-raised-button color="accent" (click)="createPost()">Post</button>
+    </mat-card-actions>
+  
+  </mat-card>
+  </form>
+  </div>

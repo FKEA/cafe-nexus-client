@@ -1,3 +1,45 @@
-<p>
-  post-card works!
-</p>
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title><h2>Username + Link</h2></mat-card-title>
+        <mat-card-subtitle>
+          {{post.created | date:'medium'}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        {{post.content}}
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title (click)="getComments()">Comments</mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+            <div class="comment" *ngFor="let comment of post.comments">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title><h4>Username + link</h4></mat-card-title>
+                        <mat-card-subtitle>{{comment.created | date:'short'}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        {{comment.content}}
+                    </mat-card-content>
+                </mat-card>
+            </div>
+
+            <form [formGroup]="commentForm" novalidate>
+                <mat-action-row>
+                    
+                    <mat-input-container floatPlaceholder="auto" class="addComment">
+                        <input matInput placeholder="Comment" formControlName="content">
+                    </mat-input-container>
+                    <button mat-button (click)="createComment()">Create</button>
+                    
+                </mat-action-row>
+            </form>
+    </mat-expansion-panel>
+
+
+    </mat-card-footer>
+
+</mat-card>

@@ -1,8 +1,33 @@
 .card {
-    margin: 10px;
     width: 400px;
 }
 
+.card_title {
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.date_input {
+    width: 20px;
+
+}
+
 .spacer {
-    flex: 1 1 auto;
+    width: 40px;
+}
+
+.full_width {
+    width: 100%;
+}
+
+.date_picker {
+    margin-right: 10px;
+    margin-left: 5px; 
+    width: 150px;  
+}
+
+.end_date_picker {
+    margin-right: 10px;
+    margin-left: 12px;
+    width: 150px;
 }

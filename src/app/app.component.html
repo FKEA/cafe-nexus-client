@@ -6,8 +6,8 @@
     
         <span class="spacer"></span>
     
-        <button mat-button [matMenuTriggerFor]="userMenu">
-            Filip Andersen
+        <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="loggedIn">
+            {{fullName}}
             <mat-icon>more_vert</mat-icon>
         </button>
     

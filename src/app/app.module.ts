@@ -43,6 +43,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { CreateEventComponent } from './create-event/create-event.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { CreateEventComponent } from './create-event/create-event.component';
     UserDetailComponent,
     LoginComponent,
     SignupComponent,
-    CreateEventComponent
+    CreateEventComponent,
+    CreatePostComponent
   ],
   imports: [
     HttpClientModule,

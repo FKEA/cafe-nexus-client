@@ -3,6 +3,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms"
 
 import { UserService } from "../services/user.service";
 
+import { Location } from "@angular/common";
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -12,7 +14,7 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private location: Location, private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit() {
     this.buildForm();
@@ -36,5 +38,8 @@ export class SignupComponent implements OnInit {
     this.userService.createUser(this.signupForm.value);
   }
 
+  goBack() {
+    this.location.back();
+  }
 
 }

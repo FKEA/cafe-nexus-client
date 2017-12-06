@@ -15,18 +15,14 @@ export class AllPostsComponent implements OnInit {
 
   constructor(private postSvc: PostService) { }
 
-  private posts: Post[];
+  posts: Post[];
 
   ngOnInit() {
 
-    this.getPosts();
+    this.postSvc.getPosts();
 
-  }
+    this.postSvc.posts$.subscribe(posts => this.posts = posts);
 
-  getPosts() {
-    this.postSvc.getPosts().subscribe(
-      posts => this.posts = posts
-    );
   }
 
 }

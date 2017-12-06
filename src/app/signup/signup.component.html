@@ -50,11 +50,10 @@
 
         </mat-card-content>
         <mat-card-actions align="center">
+            <button class="card-submit" mat-button (click)="goBack()">Cancel</button>
             <button class="card-submit" mat-raised-button color="accent" (click)="createUser()">Signup</button>
         </mat-card-actions>
     </mat-card>
     </form>
-
-    <p>Form Value: {{signupForm.value | json}}</p>
 
 </div>
