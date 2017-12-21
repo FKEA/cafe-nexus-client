@@ -6,6 +6,8 @@ import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 
 import { Location } from "@angular/common";
 
+import { Router } from "@angular/router";
+
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { AuthService } from "../services/auth.service";
@@ -34,7 +36,8 @@ export class CreateEventComponent implements OnInit {
     private fb: FormBuilder, 
     private location: Location, 
     private adapter: DateAdapter<any>,
-    private eventService: EventService) { }
+    private eventService: EventService,
+    private router: Router) { }
 
   ngOnInit() {
     this.adapter.setLocale('dk');
@@ -87,10 +90,8 @@ export class CreateEventComponent implements OnInit {
   createEvent() {
     this.buildDates();
 
-    console.log("Im trying to create an event");
-
     this.eventService.createEvent(this.eventForm.value).subscribe(() => {
-      console.log("Event Created!");
+      this.router.navigateByUrl("events");
     });
 
   }

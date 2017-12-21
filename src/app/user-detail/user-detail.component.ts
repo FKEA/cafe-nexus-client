@@ -26,7 +26,6 @@ export class UserDetailComponent implements OnInit {
   @Input() user: User;
 
   ngOnInit() {
-    this.getUser();
   }
 
   getUser(): void {

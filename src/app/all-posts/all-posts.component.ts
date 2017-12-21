@@ -4,7 +4,7 @@ import { PostService } from "../services/post.service";
 
 import { Post } from "../models/post";
 
-import { EventCardComponent } from "../event-card/event-card.component";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-all-posts',
@@ -13,15 +13,22 @@ import { EventCardComponent } from "../event-card/event-card.component";
 })
 export class AllPostsComponent implements OnInit {
 
-  constructor(private postSvc: PostService) { }
+  constructor(private postSvc: PostService, private route: ActivatedRoute) { 
+    this.route.params.subscribe(() => {
+      this.getPosts();
+    });
+  }
 
   posts: Post[];
 
   ngOnInit() {
+    this.getPosts();
+  }
 
-    this.postSvc.getPosts();
-
-    this.postSvc.posts$.subscribe(posts => this.posts = posts);
+  getPosts() {
+    this.postSvc.getPosts().subscribe(data => {
+      this.posts = data;
+    });
 
   }
 

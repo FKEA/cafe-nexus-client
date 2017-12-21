@@ -4,7 +4,7 @@ import { Post } from "../models/post";
 import { User } from "../models/user";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { PostService } from "../services/post.service";
 import { UserService } from "../services/user.service";
@@ -18,7 +18,8 @@ import { AuthService } from "../services/auth.service";
 
 export class PostCardComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService, private postService: PostService, private fb: FormBuilder, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService, private postService: PostService, private fb: FormBuilder, private userService: UserService) { 
+  }
 
   commentForm: FormGroup;
 
@@ -52,7 +53,11 @@ export class PostCardComponent implements OnInit {
   }
 
   getOwnerDetails() {
-    this.owner = this.userService.getUserInfo(this.post.owner.id);
+    this.userService.cacheLoaded$.subscribe(cacheLoaded => {
+      if (cacheLoaded) {
+        this.owner = this.userService.getUserInfo(this.post.owner.id);
+      }
+    }) 
   }
 
   goToOwner() {

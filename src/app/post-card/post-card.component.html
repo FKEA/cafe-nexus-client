@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" *ngIf="owner">
     <mat-card-header (click)="goToOwner()" class="card_header">
         <div mat-card-avatar class="avatar_male" *ngIf="owner.gender == 'm' || owner.gender == 'M'"></div>
         <div mat-card-avatar class="avatar_female" *ngIf="owner.gender == 'f' || owner.gender == 'F'"></div>    

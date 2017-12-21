@@ -28,13 +28,13 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ){}
+  ){
+    this.route.params.subscribe(() => {
+      this.userService.generateUserCache();
+    });
+  }
 
   ngOnInit(): void {
-     
-     if(this.authService.loggedIn) {
-        this.userService.generateUserCache();
-     }
 
      this.authService.loggedIn$.subscribe(loggedIn => {
        this.loggedIn = loggedIn;

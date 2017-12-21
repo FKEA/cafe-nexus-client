@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { Location } from "@angular/common";
+import { Router } from "@angular/router";
 
 import { Post } from "../models/post";
 
@@ -15,7 +16,7 @@ import { PostService } from "../services/post.service";
 })
 export class CreatePostComponent implements OnInit {
 
-  constructor(private authService: AuthService, private postService: PostService, private fb: FormBuilder, private location: Location) { }
+  constructor(private router: Router, private authService: AuthService, private postService: PostService, private fb: FormBuilder, private location: Location) { }
 
   postForm: FormGroup;
 
@@ -37,7 +38,7 @@ export class CreatePostComponent implements OnInit {
   createPost() {
     this.postService.createPost(this.postForm.value).subscribe(() => {
       this.postService.getPosts();
-      this.location.back();
+      this.router.navigateByUrl("posts");
     });
   }
 

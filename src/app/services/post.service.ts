@@ -18,11 +18,9 @@ export class PostService {
   posts: Post[]
   posts$ = new BehaviorSubject<Post[]>(this.posts);
 
-  getPosts() {
+  getPosts(): Observable<Post[]> {
 
-    this.http.get<Post[]>(this.postUrl).subscribe(posts => {
-      this.posts$.next(posts);
-    });
+    return this.http.get<Post[]>(this.postUrl);
 
   }
 
