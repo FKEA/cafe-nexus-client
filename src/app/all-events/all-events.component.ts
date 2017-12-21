@@ -18,7 +18,8 @@ export class AllEventsComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router
-  ) { }
+  ) { 
+  }
 
   events: Event[];
 

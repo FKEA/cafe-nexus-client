@@ -24,6 +24,10 @@ export class PostService {
 
   }
 
+  refreshPosts() {
+    this.http.get<Post[]>(this.postUrl);
+  }
+
   getPost(id: number): Observable<Post> {
     const url  = this.postUrl + '/' + id;
     return this.http.get<Post>(url);

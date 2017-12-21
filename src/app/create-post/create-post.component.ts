@@ -37,7 +37,7 @@ export class CreatePostComponent implements OnInit {
 
   createPost() {
     this.postService.createPost(this.postForm.value).subscribe(() => {
-      this.postService.getPosts();
+      this.postService.getPosts().subscribe();
       this.router.navigateByUrl("posts");
     });
   }
