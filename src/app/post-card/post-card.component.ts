@@ -1,9 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Post } from "../models/post";
+import { User } from "../models/user";
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 
+import { Router } from "@angular/router";
+
 import { PostService } from "../services/post.service";
+import { UserService } from "../services/user.service";
 import { AuthService } from "../services/auth.service";
 
 @Component({
@@ -14,20 +18,22 @@ import { AuthService } from "../services/auth.service";
 
 export class PostCardComponent implements OnInit {
 
-  constructor(private authService: AuthService, private postService: PostService, private fb: FormBuilder) { }
+  constructor(private router: Router, private authService: AuthService, private postService: PostService, private fb: FormBuilder, private userService: UserService) { }
 
   commentForm: FormGroup;
 
   @Input() post: Post;
+  private owner: User;
 
   ngOnInit() {
     this.buildForm();
+    this.getOwnerDetails();
   }
 
   getComments(){
-    if (this.post.comments.length === 0) {
-      this.postService.getPost(this.post.id).subscribe(data => this.post = data);
-    }
+      this.postService.getPost(this.post.id).subscribe(data => {
+        this.post = data;
+      });
   }
 
   buildForm() {
@@ -43,6 +49,14 @@ export class PostCardComponent implements OnInit {
       this.getComments();
       this.commentForm.reset();
     });
+  }
+
+  getOwnerDetails() {
+    this.owner = this.userService.getUserInfo(this.post.owner.id);
+  }
+
+  goToOwner() {
+    this.router.navigateByUrl("users/" + this.owner.id);
   }
 
 }

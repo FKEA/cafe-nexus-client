@@ -1,5 +1,5 @@
-<div fxFlexFill fxLayoutAlign="center center">
-<form>
+<div fxFlexFill fxLayoutAlign="center top">
+<form [formGroup]="eventForm" novalidate>
 <mat-card class="card">
   <mat-card-title>
     Create an Event
@@ -7,7 +7,7 @@
   <mat-card-content>
 
     <mat-form-field class="full_width card_title">
-      <input matInput placeholder="Title">
+      <input matInput placeholder="Title" formControlName="title">
     </mat-form-field>
 
     <span>
@@ -17,21 +17,22 @@
       <span class="offset"></span>
 
       <mat-form-field class="date_picker">
-        <input matInput [matDatepicker]="start_picker" placeholder="Choose a start date">
+        <input matInput [matDatepicker]="start_picker" placeholder="Choose a start date"
+           (dateInput)="onStartDateChange('input', $event)" (dateChange)="onStartDateChange('change', $event)">
         <mat-datepicker-toggle matSuffix [for]="start_picker"></mat-datepicker-toggle>
         <mat-datepicker #start_picker></mat-datepicker>
       </mat-form-field>  
 
       
 
-      <mat-form-field class="date_input">
-        <input matInput>
+      <mat-form-field class="date_input" *ngIf="eventStartDate">
+        <input matInput [(ngModel)]="eventStartHours" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
-      :
+      <span *ngIf="eventStartDate">:</span>
 
-      <mat-form-field class="date_input">
-        <input matInput>
+      <mat-form-field class="date_input" *ngIf="eventStartDate">
+        <input matInput [(ngModel)]="eventStartMinutes" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
     </span>
@@ -45,31 +46,32 @@
       <span class="offset"></span>
 
       <mat-form-field class="end_date_picker">
-        <input matInput [matDatepicker]="end_picker" placeholder="End date">
+        <input matInput [matDatepicker]="end_picker" placeholder="End date"
+            (dateInput)="onEndDateChange('input', $event)" (dateChange)="onEndDateChange('change', $event)">
         <mat-datepicker-toggle matSuffix [for]="end_picker"></mat-datepicker-toggle>
         <mat-datepicker #end_picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field class="date_input">
-        <input matInput>
+      <mat-form-field class="date_input" *ngIf="eventEndDate">
+        <input matInput [(ngModel)]="eventEndHours" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
-      :
+      <span *ngIf="eventEndDate">:</span>
 
-      <mat-form-field class="date_input">
-        <input matInput>
+      <mat-form-field class="date_input" *ngIf="eventEndDate">
+        <input matInput [(ngModel)]="eventEndMinutes" [ngModelOptions]="{standalone: true}">
       </mat-form-field>
 
     </span>
 
     <mat-form-field class="full_width">
-      <textarea matInput placeholder="Description" matTextareaAutosize matAutosizeMinRows="4"></textarea>
+      <textarea matInput formControlName="description" placeholder="Description" matTextareaAutosize matAutosizeMinRows="4"></textarea>
     </mat-form-field>
 
   </mat-card-content>
   <mat-card-actions align="center">
       <button mat-raised-button (click)="goBack()">Cancel</button>
-      <button mat-raised-button color="accent">Create Event</button>
+      <button mat-raised-button color="accent" (click)="createEvent()">Create Event</button>
   </mat-card-actions>
 
 </mat-card>

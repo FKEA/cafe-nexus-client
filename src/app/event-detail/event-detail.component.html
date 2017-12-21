@@ -1,3 +1,66 @@
-<p>
-  event-detail works!
-</p>
+<div fxLayout="column" fxLayoutAlign="top center" fxFlexFill>
+    
+  <mat-card *ngIf="event" class="card">
+    <mat-card-header>
+      <mat-card-title class="title">
+        {{event.title}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Start: {{event.startDate | date:'medium'}}
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+          End: {{event.endDate | date:'medium'}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <b>Description:</b> <br>
+      {{event.description}}
+    </mat-card-content>
+    <mat-card-content>
+      <mat-list>
+        <mat-divider></mat-divider>
+        <span mat-subheader>
+        <h3>Participants</h3>
+        <span class="spacer"></span>
+        <button mat-raised-button color="primary" *ngIf="!userIsAttending" (click)="attendEvent()">Attend</button>
+        <button mat-raised-button disabled color="primary" *ngIf="userIsAttending">Attending</button>
+        </span>
+        <mat-list-item *ngFor="let user of event.participants" (click)="goToUser(user.id)" class="link">
+
+            <div mat-list-icon class="avatar_male" *ngIf="user.gender == 'm' || user.gender == 'M'"></div>
+            <div mat-list-icon class="avatar_female" *ngIf="user.gender == 'f' || user.gender == 'F'"></div>
+    
+            <h4 mat-line>{{user.firstName}} {{user.lastName}}</h4>
+            <p mat-line>{{user.major}} - {{user.semester}}. Semester</p>
+        </mat-list-item>
+        <mat-list-item *ngIf="event.participants.length === 0">
+          There are currently nobody participating
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3 mat-subheader>Posts</h3>
+        <mat-list-item *ngFor="let post of event.posts">
+          <mat-icon mat-list-icon>comment</mat-icon>
+          <h4 mat-line>{{post.content}}</h4>
+          <p mat-line>{{post.created | date:'medium'}}</p>
+        </mat-list-item>
+        <mat-list-item *ngIf="event.posts.length === 0">
+          There are currently no posts
+        </mat-list-item>
+
+        <form [formGroup]="postForm" novalidate>
+                <mat-input-container floatPlaceholder="auto" class="post_input">
+                    <textarea matInput placeholder="Post" matTextareaAutosize matAutosizeMinRows="2" formControlName="content"></textarea>
+                </mat-input-container>
+                <button mat-button (click)="submitPost()">Create</button>
+
+        </form>
+
+      </mat-list>
+    </mat-card-content>
+
+  </mat-card>
+
+
+</div>
+    
+    

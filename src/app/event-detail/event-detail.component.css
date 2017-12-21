@@ -1,0 +1,38 @@
+.title {
+    font-size: 20px;
+}
+
+.card {
+    width: 400px;
+}
+
+.avatar_male {
+    background-image: url('../../assets/MaleAvatar.jpg');
+    background-size: cover;
+  }
+
+.avatar_female {
+  background-image: url('../../assets/FemaleAvatar.jpg');
+  background-size: cover;
+}
+
+.participate_button {
+    margin-left: 15px;
+}
+
+.spacer{
+    flex: 1 1;
+}
+
+.post_input{
+    width: 275px;
+    margin-left: 15px;
+}
+
+.mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  .link {
+      cursor: pointer;
+  }

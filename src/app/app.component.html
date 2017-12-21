@@ -2,8 +2,28 @@
 
 <mat-toolbar color="primary" class="fixed-header">
         
-        <span>Cafe Nexus</span>
-    
+        <button mat-icon-button [matMenuTriggerFor]="viewMenu" *ngIf="loggedIn">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <mat-menu #viewMenu="matMenu">
+            <button mat-menu-item (click)="goToPosts()">
+                <mat-icon>comment</mat-icon>
+                Posts
+            </button>
+            <button mat-menu-item (click)="goToEvents()">
+                <mat-icon>event</mat-icon>
+                Events
+            </button>
+        </mat-menu>
+
+        <span (click)="goHome()" class="home_button">Cafe Nexus </span>
+
+
+        <span class="spacer"></span>
+
+        {{ pageTitle }}
+
         <span class="spacer"></span>
     
         <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="loggedIn">
@@ -12,7 +32,7 @@
         </button>
     
         <mat-menu #userMenu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="goToAccount()">
                 <mat-icon>account_box</mat-icon>
                 Account
             </button>
@@ -24,6 +44,6 @@
           
 </mat-toolbar>
 
-<div fxFlexFill>
-<router-outlet></router-outlet>
+<div fxFlexFill class="outlet">
+<router-outlet (deactivate)="onDeactivate()"></router-outlet>
 </div>

@@ -1,0 +1,37 @@
+.card {
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.card_posts {
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.card_events {
+    width: 400px;
+}
+
+.avatar_male {
+    background-image: url('../../assets/MaleAvatar.jpg');
+    background-size: cover;
+  }
+
+  .avatar_female {
+    background-image: url('../../assets/FemaleAvatar.jpg');
+    background-size: cover;
+  }
+
+  .date {
+      font-size: 10px;
+      font-style: italic;
+  }
+
+  .event:hover {
+    color: grey;
+    cursor: pointer;
+  }
+
+  .mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }

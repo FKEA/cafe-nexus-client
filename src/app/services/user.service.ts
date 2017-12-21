@@ -14,6 +14,8 @@ const httpOptions = {
 @Injectable()
 export class UserService {
 
+  private users: User[];
+
   private usersUrl = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -30,7 +32,19 @@ export class UserService {
 
   //TODO: Implement getUser
   getUser(id: number): Observable<User> {
-    return null;
+    return this.http.get<User>(this.usersUrl + "/" + id);
+  }
+
+  generateUserCache() {
+    this.getUsers().subscribe(users => this.users = users);
+  }
+
+  getUserInfo(id: number): User {
+    for (let user of this.users) {
+      if (user.id === id) {
+        return user;
+      }
+    }
   }
 }
 

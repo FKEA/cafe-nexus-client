@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -19,7 +21,8 @@ import { MatButtonModule,
          MatSelectModule,
          MatDialogModule,
          MatDatepickerModule,
-         MatNativeDateModule } from "@angular/material";
+         MatNativeDateModule,
+         MatListModule } from "@angular/material";
 
 import { Http, RequestOptions } from "@angular/http";
 import { HttpClientModule } from "@angular/common/http";
@@ -28,17 +31,18 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { UserService } from "./services/user.service";
 import { AuthService } from "./services/auth.service";
 import { PostService } from "./services/post.service";
+import { EventService } from "./services/event.service";
+import { AuthGuardService } from "./auth-guard.service";
+import { AuthInterceptorService } from "./auth-interceptor.service";
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 
 import { AppRoutingModule } from "./app-routing.module";
-import { EventCardComponent } from './event-card/event-card.component';
 import { AllEventsComponent } from './all-events/all-events.component';
 import { AllPostsComponent } from './all-posts/all-posts.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
-import { EventDetailComponent } from './event-detail/event-detail.component';
+import { EventDetailComponent } from "./event-detail/event-detail.component";
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -49,13 +53,11 @@ import { CreatePostComponent } from './create-post/create-post.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    EventCardComponent,
     AllEventsComponent,
     AllPostsComponent,
     PostCardComponent,
-    PostDetailComponent,
     EventDetailComponent,
+    PostDetailComponent,
     UserDetailComponent,
     LoginComponent,
     SignupComponent,
@@ -78,6 +80,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     MatMenuModule,
     MatButtonModule,
     MatToolbarModule,
+    MatListModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
@@ -86,10 +89,16 @@ import { CreatePostComponent } from './create-post/create-post.component';
     FlexLayoutModule,
     ReactiveFormsModule
   ],
-  providers: [
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true,
+  },
     UserService,
     AuthService,
-    PostService
+    PostService,
+    EventService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

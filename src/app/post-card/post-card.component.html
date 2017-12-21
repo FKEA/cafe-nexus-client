@@ -1,6 +1,8 @@
 <mat-card class="card">
-    <mat-card-header>
-        <mat-card-title><h2>Username + Link</h2></mat-card-title>
+    <mat-card-header (click)="goToOwner()" class="card_header">
+        <div mat-card-avatar class="avatar_male" *ngIf="owner.gender == 'm' || owner.gender == 'M'"></div>
+        <div mat-card-avatar class="avatar_female" *ngIf="owner.gender == 'f' || owner.gender == 'F'"></div>    
+        <mat-card-title><b>{{owner.firstName}} {{owner.lastName}}</b></mat-card-title>
         <mat-card-subtitle>
           {{post.created | date:'medium'}}
         </mat-card-subtitle>
@@ -10,22 +12,21 @@
     </mat-card-content>
     <mat-card-footer>
         <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title (click)="getComments()">Comments</mat-panel-title>
+            <mat-expansion-panel-header (click)="getComments()">
+                <mat-panel-title>Comments</mat-panel-title>
             </mat-expansion-panel-header>
 
 
-            <div class="comment" *ngFor="let comment of post.comments">
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title><h4>Username + link</h4></mat-card-title>
-                        <mat-card-subtitle>{{comment.created | date:'short'}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                        {{comment.content}}
-                    </mat-card-content>
-                </mat-card>
-            </div>
+            <mat-list>
+                <mat-list-item *ngFor="let comment of post.comments">
+                    <mat-icon mat-list-icon>comment</mat-icon>
+                    <h4 mat-line>{{comment.content}}</h4>
+                    <p mat-line>{{comment.created | date:'short'}}</p>
+                </mat-list-item>
+                <mat-list-item *ngIf="post.comments.length === 0">
+                    <i>No Comments</i>
+                </mat-list-item>
+            </mat-list>
 
             <form [formGroup]="commentForm" novalidate>
                 <mat-action-row>

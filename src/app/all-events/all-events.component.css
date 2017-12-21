@@ -4,3 +4,17 @@
     right: 2%;
     z-index: 2;
   }
+
+.card {
+  width: 400px;
+  margin-top: 10px;
+}
+
+.event:hover {
+  color: grey;
+  cursor: pointer;
+}
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}

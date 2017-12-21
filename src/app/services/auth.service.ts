@@ -5,6 +5,8 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
+import { UserService } from "./user.service";
+
 @Injectable()
 export class AuthService {
 
@@ -20,7 +22,7 @@ export class AuthService {
   lastName: String;
   email: String;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) {
 
     if(this.getToken() !== null) {
       this.setLoggedIn(true);
@@ -28,7 +30,7 @@ export class AuthService {
       this.email = this.getEmail();
       this.firstname = this.getFirstName();
       this.lastName = this.getLastName();
-      this.router.navigateByUrl("home");
+     // this.router.navigateByUrl("home");
     }
    }
 
@@ -48,7 +50,9 @@ export class AuthService {
           this.email = this.getEmail();
           this.firstname = this.getFirstName();
           this.lastName = this.getLastName();
-          this.router.navigateByUrl("home");
+          this.userService.generateUserCache();
+          this.router.navigateByUrl("posts");
+          this.userService.generateUserCache();
         },
         error => {
           console.log(error);
@@ -63,11 +67,11 @@ export class AuthService {
     this.loggedIn = loggedIn;
   }
 
-  private getToken(): String {
+  getToken(): String {
     return localStorage.getItem("token") as string;
   }
 
-  private getId(): Number {
+  getId(): Number {
     return Number(localStorage.getItem('user_id'));
   }
 

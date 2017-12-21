@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { EventCardComponent } from "../event-card/event-card.component";
 import { CreateEventComponent } from "../create-event/create-event.component";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Event } from "../models/event";
 
+import { EventService } from "../services/event.service";
 
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-all-events',
@@ -14,10 +15,25 @@ import { Event } from "../models/event";
 })
 export class AllEventsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private eventService: EventService,
+    private router: Router
+  ) { }
+
+  events: Event[];
 
   ngOnInit() {
+    this.getEvents();
   }
 
+  getEvents() {
+    this.eventService.getEvents().subscribe(events => {
+      this.events = events;
+    });
+  }
+
+  goToEvent(id: number) {
+    this.router.navigateByUrl("events/" + id);
+  }
 
 }

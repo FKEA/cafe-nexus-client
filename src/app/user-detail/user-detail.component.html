@@ -1,3 +1,48 @@
-<p>
-  user-detail works!
-</p>
+<div fxLayout="column" fxLayoutAlign="top center" fxFlexFill>
+<mat-card class="card" *ngIf='user'>
+    <mat-card-header>
+        <div mat-card-avatar class="avatar_male" *ngIf="user.gender == 'm' || user.gender == 'M'"></div>
+        <div mat-card-avatar class="avatar_female" *ngIf="user.gender == 'f' || user.gender == 'F'"></div>
+        
+        <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+        <mat-card-subtitle>{{user.major}} {{user.semester}}.semester</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        {{user.description}}
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="card_posts" *ngIf='user'>
+  <mat-card-title>Posts</mat-card-title>
+
+  <mat-divider></mat-divider>
+  <mat-list>
+    <mat-list-item *ngFor="let post of user.posts">
+      <mat-icon mat-list-icon class="icon">comment</mat-icon>
+      <h3 mat-line>{{post.content}}</h3>
+      <p mat-line class="date">{{post.created | date:'short'}}</p>
+    </mat-list-item>
+  </mat-list>
+<mat-card-content *ngIf="user.posts.length === 0">
+  No posts found
+</mat-card-content>
+</mat-card>
+
+
+<mat-card class="card_events" *ngIf="user">
+    <mat-card-title>Events</mat-card-title>
+    <mat-list>
+      <mat-divider></mat-divider>
+      <mat-list-item class="event" *ngFor="let event of user.events" (click)="goToEvent(event.id)">
+        <mat-icon mat-list-icon class="icon">event</mat-icon>
+        <h4 mat-line>{{event.title}}</h4>
+        <p mat-line>{{event.description}}</p>
+      </mat-list-item>
+    </mat-list>
+  <mat-card-content *ngIf="user.events.length === 0">
+      No events found
+    </mat-card-content>
+</mat-card>
+</div>
+
+
